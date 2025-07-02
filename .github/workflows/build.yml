@@ -1,4 +1,4 @@
-name: ZMK Build
+name: Build ZMK firmware
 
 on:
   push:
@@ -15,16 +15,17 @@ jobs:
 
     - name: Clone ZMK main repo
       run: |
-        git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
+        git clone --depth 1 https://github.com/zmkfirmware/zmk.git app
 
-    - name: Initialize west and update
+    - name: Initialize west and update modules
       run: |
-        west init -l config
+        west init -l app
         west update
 
-    - name: Build firmware
+    - name: Build ZMK firmware
       run: |
-        west build -d build -b nice_nano_v2 config
+        west build -s app -d build -b nice_nano_v2
+
     - name: Upload firmware artifact
       uses: actions/upload-artifact@v4
       with:
