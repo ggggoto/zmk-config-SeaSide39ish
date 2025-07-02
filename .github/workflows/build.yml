@@ -1,4 +1,4 @@
-name: Build ZMK firmware
+name: ZMK Build
 
 on:
   push:
@@ -8,22 +8,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout your config repository
-        uses: actions/checkout@v3
+    - name: Checkout config repository
+      uses: actions/checkout@v3
 
-      - name: Clone ZMK
-        run: |
-          git clone https://github.com/zmkfirmware/zmk.git app
+    - name: Clone ZMK main repo
+      run: |
+        git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
 
-      - name: Initialize west
-        run: |
-          west init -l app
-          west update
-          west zephyr-export
+    - name: Initialize west and update
+      run: |
+        west init -l config
+        west update
 
-      - name: Build firmware
-        uses: zmkfirmware/zmk-docker-build-action@v1.0.0
-        with:
-          board: "nice_nano_v2"
-          shield: "sea_side_39ish"
+    - name: Build firmware
+      run: |
+        west build -d build -b nice_nano_v2 config
+    - name: Upload firmware artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: zmk-firmware
+        path: build/zephyr/zmk.uf2
