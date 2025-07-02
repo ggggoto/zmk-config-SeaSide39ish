@@ -1,33 +1,5 @@
-name: Build ZMK firmware
-
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout config repository
-      uses: actions/checkout@v3
-
-    - name: Clone ZMK main repo
-      run: |
-        git clone --depth 1 https://github.com/zmkfirmware/zmk.git app
-
-    - name: Initialize west and update modules
-      run: |
-        west init -l app
-        west update
-
-    - name: Build ZMK firmware
-      run: |
-        west build -s app -d build -b nice_nano_v2
-
-    - name: Upload firmware artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: zmk-firmware
-        path: build/zephyr/zmk.uf2
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
