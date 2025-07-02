@@ -1,5 +1,29 @@
-on: [push, pull_request, workflow_dispatch]
+name: Build ZMK firmware
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout config repository
+        uses: actions/checkout@v3
+
+      - name: Clone ZMK main repo
+        run: |
+          git clone https://github.com/zmkfirmware/zmk.git app
+
+      - name: Initialize west and update
+        run: |
+          cd app
+          west init -l app
+          west update
+
+      - name: Build ZMK firmware
+        uses: zmkfirmware/zmk-docker-build-action@v1.0.0
+        with:
+          board: "nice_nano_v2"
+          shield: "sea_side_39ish"
