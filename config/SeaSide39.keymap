@@ -29,16 +29,19 @@
         };
 
         // ★ 追加：Mac用プロファイル切り替えマクロ
+
         mac_profile: mac_profile {
             compatible = "zmk,behavior-macro";
             label = "MAC_PROFILE";
             #binding-cells = <0>;
 
             // BT プロファイル0に接続 → ベースレイヤー0（Mac）に切り替え
+
             bindings = <&bt BT_SEL 0 &to 0>;
         };
 
         // ★ 追加：Windows用プロファイル切り替えマクロ
+
         win_profile: win_profile {
             compatible = "zmk,behavior-macro";
             label = "WIN_PROFILE";
@@ -46,6 +49,7 @@
 
             // BT プロファイル1に接続 → ベースレイヤー7（Win）に切り替え
             // ※ win_layer を7番目に追加する前提（このあとやります）
+
             bindings = <&bt BT_SEL 1 &to 7>;
         };
     };
@@ -133,10 +137,10 @@
 
         win_layer {
             bindings = <
-&kp Q             &kp W      &kp E         &kp R             &kp T                                                &kp Y            &kp U  &lt 5 I   &kp O     &lt 6 P
-&kp A             &kp S      &kp D         &kp F             &kp G                                                &kp H            &kp J  &kp K     &kp L     &kp ENTER
-&mt LEFT_SHIFT Z  &kp X      &kp C         &kp V             &kp B                                                &kp N            &kp M  &mkp MB1  &mkp MB3  &mkp MB2
-&kp LEFT_SHIFT    &kp LCTRL  &kp LEFT_ALT  &mt LEFT_WIN TAB  &lt 1 SPACE  &lt 2 LANG2      &mt RIGHT_SHIFT LANG1  &lt 3 BACKSPACE                             &lt 5 ESCAPE
+&kp Q             &kp W      &kp E         &kp R                 &kp T                                                &kp Y            &kp U  &lt 5 I   &kp O  &lt 6 P
+&kp A             &kp S      &kp D         &kp F                 &kp G                                                &kp H            &kp J  &kp K     &kp L  &kp ENTER
+&mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                 &kp B                                                &kp N            &kp M  &mkp MB1  &kp A  &mkp MB2
+&kp LEFT_SHIFT    &kp LCTRL  &kp LEFT_ALT  &mt LEFT_CONTROL TAB  &lt 1 SPACE  &lt 2 LANG2      &mt RIGHT_SHIFT LANG1  &lt 3 BACKSPACE                          &lt 5 ESCAPE
             >;
 
             sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
