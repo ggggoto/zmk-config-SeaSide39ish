@@ -30,7 +30,7 @@
             label = "MAC_PROFILE";
             #binding-cells = <0>;
             // BT0 + layer0(Mac)
-            bindings = <&bt BT_SEL 0 &to 0>;
+            bindings = <&bt BT_SEL 0>, <&to 0>;
         };
 
         // Win用プロファイル切り替え
@@ -39,7 +39,7 @@
             label = "WIN_PROFILE";
             #binding-cells = <0>;
             // BT1 + layer1(Win)
-            bindings = <&bt BT_SEL 1 &to 1>;
+            bindings = <&bt BT_SEL 1>, <&to 1>;
         };
     };
 
